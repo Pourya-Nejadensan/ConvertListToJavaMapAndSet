@@ -1,39 +1,40 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class School {
-    private List<Student> students;
+    private Map<Integer, Student> students;
 
     public List<Course> getCoursesByStudentId(int studentId) {
         return findStudentById(studentId).getCourse();
     }
 
     public Student findStudentById(int id) {
-        for (Student student : students) {
-            if (student.getStudentId() == id)
-                return student;
+        for (Map.Entry<Integer,Student>  student: students.entrySet()) {
+            if (student.getKey() == id)
+                return student.getValue();
         }
         return null;
     }
 
     public boolean removeStudent(int id) {
-        if (findStudentById(1) != null){
-            students.remove(findStudentById(1));
+        if (findStudentById(id) != null){
+            students.remove(findStudentById(id));
             return true;
         }
         return false;
     }
 
     public School() {
-        students = new ArrayList<>();
+        students = new HashMap<>();
     }
 
     public void addStudent(Student student) {
-        students.add(student);
+        students.put(student.getStudentId(),student);
     }
 
     public void printStudents() {
-        for (Student student : students) {
+        for (Map.Entry<Integer,Student>  student: students.entrySet()) {
             System.out.println(student);
         }
     }
